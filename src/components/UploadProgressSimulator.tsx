@@ -1,28 +1,56 @@
 // ==========================================
 // 🔧 WEEK 2: UploadProgressSimulator.tsx
 // ==========================================
-// This is a template for your Week 2 progress component!
-// Follow your student guide to complete this component.
+// This is an interactive component that simulates file upload progress
+// with realistic animation and state management!
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const UploadProgressSimulator = () => {
   // 🧠 State variables - your component's memory
   const [progress, setProgress] = useState(0);        // Tracks progress percentage (0-100)
   const [isUploading, setIsUploading] = useState(false); // Tracks if upload is in progress
+  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Reference to clear interval later
 
   // 🔄 Event handler functions - what happens when buttons are clicked
   const startUpload = () => {
-    // TODO: Implement upload simulation
-    // HINT: You'll need to use setInterval to animate the progress
+    setIsUploading(true);
+    setProgress(0);
+    
+    // Simulate upload progress with intervals
+    intervalRef.current = setInterval(() => {
+      setProgress(prevProgress => {
+        const newProgress = prevProgress + Math.random() * 15 + 5; // Random chunks (5-20%)
+        
+        // Complete upload when we reach 100%
+        if (newProgress >= 100) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+          }
+          setIsUploading(false);
+          return 100;
+        }
+        
+        return newProgress;
+      });
+    }, 300); // Update every 300ms for smooth animation
   };
 
   const resetProgress = () => {
-    // TODO: Reset progress back to 0
+    // Clear any running interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    setProgress(0);
+    setIsUploading(false);
   };
 
   const addProgress = () => {
-    // TODO: Add 25% to current progress
+    // Add 25% to current progress (max 100%)
+    setProgress(prev => Math.min(prev + 25, 100));
+    if (progress + 25 >= 100) {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -41,9 +69,12 @@ const UploadProgressSimulator = () => {
 
       {/* 📈 Progress Display */}
       <div className="text-center mb-6">
-        <span className="text-3xl font-bold text-blue-600">{progress}%</span>
+        <span className="text-3xl font-bold text-blue-600">{Math.round(progress)}%</span>
         <div className="text-sm text-gray-600 mt-2">
-          {/* TODO: Add status messages based on progress and upload state */}
+          {isUploading && "📤 Uploading file..."}
+          {!isUploading && progress === 0 && "📁 Ready to upload"}
+          {!isUploading && progress > 0 && progress < 100 && "⏸️ Upload paused"}
+          {!isUploading && progress === 100 && "✅ Upload complete!"}
         </div>
       </div>
 
@@ -76,10 +107,11 @@ const UploadProgressSimulator = () => {
 
       {/* 🎉 Fun progress messages */}
       <div className="text-center mt-4 text-sm text-gray-600">
-        {/* TODO: Add different messages based on progress value */}
-        {/* HINT: Use conditional rendering like: */}
-        {/* {progress === 0 && "Ready to start!"} */}
-        {/* {progress > 50 && "More than halfway there!"} */}
+        {progress === 0 && "Click 'Start Upload' to begin the simulation!"}
+        {progress > 0 && progress <= 25 && "📦 Just getting started..."}
+        {progress > 25 && progress <= 50 && "📦📦 You're doing great!"}
+        {progress > 50 && progress < 100 && "📦📦📦 Almost there!"}
+        {progress === 100 && "🎉 Perfect! Ready for another file?"}
       </div>
     </div>
   );
@@ -87,8 +119,9 @@ const UploadProgressSimulator = () => {
 
 export default UploadProgressSimulator;
 
-// 📝 NEXT STEPS:
-// 1. Complete the TODO sections following your student guide
-// 2. Import this component in src/pages/Index.tsx
-// 3. Add it where the Week 2 comments indicate
-// 4. Test your component by clicking the buttons!
+// 📝 This component demonstrates:
+// 🎯 useState for managing progress and upload state
+// 🎯 useRef for storing the interval ID to clean it up later
+// 🎯 Event handlers for button clicks
+// 🎯 Conditional rendering based on state values
+// 🎯 setProgress with prevProgress pattern for accurate updates

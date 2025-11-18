@@ -19,6 +19,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import DataUpload from '@/components/DataUpload';
 import Dashboard from '@/components/Dashboard';
 import Footer from '@/components/Footer';
+import UploadProgressSimulator from '@/components/UploadProgressSimulator';
 import { DataRow } from '@/types/data';
 // 🆕 WEEK 3: Import NameInput demo
 // import NameInput from '@/components/NameInput';
@@ -113,6 +114,26 @@ const Index = () => {
                     Discover patterns, trends, and statistical insights automatically generated from your dataset.
                   </CardDescription>
                 </CardHeader>
+              </Card>
+            </div>
+
+            {/* 🔧 WEEK 2: Upload Progress Simulator Demo */}
+            <div className="mb-12">
+              <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm">
+                <CardHeader className="text-center">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-3 rounded-full">
+                      <Upload className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-2xl">Interactive Progress Demo</CardTitle>
+                  <CardDescription>
+                    Try our upload progress simulator built with React state! This demonstrates useState, event handlers, and conditional rendering in action.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <UploadProgressSimulator />
+                </CardContent>
               </Card>
             </div>
 
