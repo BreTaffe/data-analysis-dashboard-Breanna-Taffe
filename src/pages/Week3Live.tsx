@@ -1,4 +1,5 @@
 import Week3LiveDemo from '@/components/Week3LiveDemo';
+import SimpleNameInput from '@/components/SimpleNameInput';
 import NameInput from '@/components/NameInput';
 
 const Week3Live = () => {
@@ -16,7 +17,8 @@ const Week3Live = () => {
             Try the NameInput demo below. Focus on controlled components, user input, and validation!
           </p>
         </div>
-        <div className="mb-8">
+        <div className="mb-8 grid gap-6">
+          <SimpleNameInput />
           <NameInput />
         </div>
         <Week3LiveDemo />
