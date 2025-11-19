@@ -1,6 +1,7 @@
 import Week3LiveDemo from '@/components/Week3LiveDemo';
 import SimpleNameInput from '@/components/SimpleNameInput';
 import NameInput from '@/components/NameInput';
+import SimpleChart from '@/components/SimpleChart';
 
 const Week3Live = () => {
   return (
@@ -20,6 +21,9 @@ const Week3Live = () => {
         <div className="mb-8 grid gap-6">
           <SimpleNameInput />
           <NameInput />
+        </div>
+        <div className="mb-8">
+          <SimpleChart title="Week 5: Data Visualization Example" />
         </div>
         <Week3LiveDemo />
       </div>
