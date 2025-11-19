@@ -145,7 +145,7 @@ const NameInput = () => {
   return (
     <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        Welcome to Week 3! 👋
+        Welcome!
       </h2>
 
       {/* Main Form */}

@@ -57,7 +57,7 @@ const Index = () => {
           </h1>
           <p className="text-xl text-slate-600 mb-2">Data Insight Engine</p>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-            Built by Breanna Taffe — Future Programmer and learning React one step at a time!
+            Upload your dataset and instantly discover insights, visualize trends, and explore your data with interactive charts and analytics. Built by Breanna — learning React for the first time!
             </p>
           {/* 🆕 WEEK 3: Interactive Form Component */}
           <div className="mt-8 mb-8 flex justify-center">
