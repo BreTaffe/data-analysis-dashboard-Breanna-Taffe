@@ -22,7 +22,7 @@ import BrokenDemo from "./pages/BrokenDemo";
 import BrokenDemoSolution from "./pages/BrokenDemoSolution";
 import Week7LiveDemoChat from "./components/Demos/Week7LiveDemoChat";
 import Week7AIChatDemo from "./pages/Week7AIChatDemo";
-import Week8Live from "./components/Demos/Week8Live";
+import Week8Live from "./pages/Week8Live";
 
 // Create a client for managing data queries (don't worry about this yet!)
 const queryClient = new QueryClient();
@@ -63,14 +63,14 @@ function App() {
 
           <Route path="/week7-ai-chat" element={<Week7AIChatDemo />} />
 
+          <Route path="/week8-live" element={<Week8Live />} />
+
           {/* 🔍 Week 9: Quality Detective Challenge */}
           <Route path="/broken-demo" element={<BrokenDemo />} />
           <Route path="/broken-demo-solution" element={<BrokenDemoSolution />} />
           
           {/* ⚠️ Catch-all route - shows 404 for unknown URLs */}
           <Route path="*" element={<NotFound />} />
-
-          <Route path="/week8-live" element={<Week8Live />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

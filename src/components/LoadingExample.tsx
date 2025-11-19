@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { SkeletonRow, SkeletonCard } from './SkeletonLoader';
+import { Card } from './ui/card';
+
+/**
+ * LoadingExample Component
+ * Demonstrates skeleton loading pattern for better perceived performance
+ * Instead of showing "Loading..." text, displays skeleton UI that matches real content shape
+ */
 
 function LoadingExample() {
-  const [data, setData] = useState<null | string>(null);
+  const [data, setData] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulate a network request
     const timer = setTimeout(() => {
-      setData('Here is your loaded data!');
+      setData('Your data has been successfully loaded from the API!');
       setLoading(false);
     }, 2000);
     return () => clearTimeout(timer);
@@ -15,24 +23,43 @@ function LoadingExample() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 40 }}>
-        <div className="spinner" style={{ width: 40, height: 40, border: '4px solid #ccc', borderTop: '4px solid #333', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-        <p>Loading...</p>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
+      <Card className="p-6 max-w-md mx-auto">
+        <div className="space-y-4">
+          {/* Title skeleton */}
+          <div className="animate-pulse bg-gray-300 h-6 w-1/3 rounded" aria-hidden="true" />
+          {/* Content skeleton rows */}
+          <div className="space-y-2">
+            <SkeletonRow count={3} />
+          </div>
+          {/* Button skeleton */}
+          <div className="animate-pulse bg-gray-300 h-10 w-24 rounded" aria-hidden="true" />
+        </div>
+        <div className="mt-4 text-sm text-gray-500 animate-pulse" role="status" aria-live="polite">
+          Loading data...
+        </div>
+      </Card>
     );
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: 40 }}>
-      <h2>Data Loaded!</h2>
-      <p>{data}</p>
-    </div>
+    <Card className="p-6 max-w-md mx-auto">
+      <h2 className="text-xl font-bold mb-4">Data Loaded Successfully!</h2>
+      <p className="text-gray-700 mb-4">{data}</p>
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        aria-label="Reload data"
+        onClick={() => {
+          setLoading(true);
+          const timer = setTimeout(() => {
+            setData('Data reloaded at ' + new Date().toLocaleTimeString());
+            setLoading(false);
+          }, 2000);
+          return () => clearTimeout(timer);
+        }}
+      >
+        Reload Data
+      </button>
+    </Card>
   );
 }
 
